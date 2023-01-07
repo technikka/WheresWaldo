@@ -1,0 +1,5 @@
+<h1>Choose an Exhibit</h1>
+
+<% @exhibits.each do |exhibit| %>
+  <%= link_to exhibit.title, exhibit_path(exhibit) %>
+<% end %>
