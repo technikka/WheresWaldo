@@ -1,4 +1,16 @@
-<%= link_to "Choose another exhibit", exhibits_path %>
-<h1><%= @exhibit.title %></h1>
+<%= content_for :head do %>
+  <%= javascript_import_module_tag "exhibits" %>
+<% end %>
 
-<%= image_tag(@exhibit.image_path, width: "1000", height: "634") %>
+<nav>
+  <%= link_to "Choose Another Exhibit", exhibits_path %>
+</nav>
+
+<div class="exhibit-content">
+  <h1><%= @exhibit.title %></h1>
+  
+  <div id="image-grid">
+    <%= image_tag(@exhibit.image_path, style: "width:100%;position:absolute;z-index:-10") %>
+  </div>
+  
+</div>
