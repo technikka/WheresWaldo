@@ -6,24 +6,40 @@
   <%= link_to "Main Menu", exhibits_path %>
 </nav>
 
-<div id="image-size">
-  <%= form_with do |f| %>
-    <h2 style="font-size:20px; margin: 30px 0 10px 0;">Select Image Size:</h2>
-    <p>* changing size restarts the game</p>
-    <%= f.radio_button :size, "small" %>
-    <%= f.label :image_size, "800x500 (small)" %>
-    <%= f.radio_button :size, "medium", checked: true %>
-    <%= f.label :image_size, "1000x630 (medium)" %>
-    <%= f.radio_button :size, "large" %>
-    <%= f.label :image_size, "1200x750 (large)" %>
-  <% end %>
-</div>
-
 <div class="exhibit-content">
-  <h1><%= @exhibit.title %></h1>
+  <div class="left-panel">
+    <div id="image-size">
+      <%= form_with do |f| %>
+        <h2>Select Image Size:</h2>
+        <p>* changing size restarts the game</p>
+        <div>
+          <%= f.radio_button :size, "small" %>
+          <%= f.label :image_size, "800x500 (small)" %>
+        </div>
+        <div>
+          <%= f.radio_button :size, "medium", checked: true %>
+          <%= f.label :image_size, "1000x630 (medium)" %>
+        </div>
+        <div>
+          <%= f.radio_button :size, "large" %>
+          <%= f.label :image_size, "1200x750 (large)" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="characters">
+      <%= image_tag("waldo.png") %>
+      <%= image_tag("wilma.png") %>
+      <%= image_tag("wizard_whitebeard.png") %>
+      <%= image_tag("odlaw.png") %>
+    </div>
+  </div>
   
-  <div id="image-grid-container">
-    <div id="grid"></div>
-    <%= image_tag(@exhibit.image_path, style: "width:1000px;height:630px;position:absolute;z-index:-10") %>
+  <div class="right-panel">
+    <h1><%= @exhibit.title %></h1>
+    
+    <div id="image-grid-container">
+      <div id="grid"></div>
+      <%= image_tag(@exhibit.image_path) %>
+    </div>
   </div>
 </div>

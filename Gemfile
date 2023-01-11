@@ -64,8 +64,8 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 
-  gem 'guard-livereload', '~> 2.5', '>= 2.5.2', require: false
-  gem 'rack-livereload', '~> 0.3.17'
+  # gem 'guard-livereload', '~> 2.5', '>= 2.5.2', require: false
+  # gem 'rack-livereload', '~> 0.3.17'
 end
 
 group :test do
