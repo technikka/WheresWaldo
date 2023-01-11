@@ -1,15 +1,44 @@
-const imageGrid = document.getElementById("image-grid");
+const sizeForm = document.getElementById("image-size");
+const imageGridContainer = document.getElementById("image-grid-container");
+const grid = document.getElementById("grid");
+const image = document.querySelector("#image-grid-container>img");
 const characters = ["Waldo", "Wilma", "Odlaw", "Wizard"];
 
-const sizeGrid = ((width = "1000px", height = "630px") => {
-  imageGrid.style.fontSize = "0px";
-  imageGrid.style.width = width;
-  imageGrid.style.height = height;
-})();
 
-const drawGrid = ((width = 1000, height = 630) => {
-  const tilesAcross = Math.round(width / 10);
-  const tilesDown = Math.round(height / 10);
+const sizeSelected = () => {
+  if (document.getElementById("size_small").checked) {
+    return { width: 800, height: 500 };
+  } else if (document.getElementById("size_large").checked) {
+    return { width: 1200, height: 750 };
+  }
+  return { width: 1000, height: 630 }; // default is medium
+};
+
+const sizeImage = () => {
+  const size = sizeSelected();
+  image.style.width = size.width + "px";
+  image.style.height = size.height + "px";
+}
+
+const sizeContainer = () => {
+  const size = sizeSelected();
+  imageGridContainer.style.fontSize = "0px";
+  imageGridContainer.style.width = size.width + "px";
+  imageGridContainer.style.height = size.height + "px";
+}
+
+const sizeGrid = () => {
+  const size = sizeSelected();
+  grid.style.fontSize = "0px";
+  grid.style.width = size.width + "px";
+  grid.style.height = size.height + "px";
+  grid.style.position = "absolute";
+};
+
+const drawGrid = () => {
+  const size = sizeSelected();
+  const tilesAcross = size.width / 10;
+  const tilesDown = size.height / 10;
 
   let divID = 1;
 
@@ -23,14 +52,15 @@ const drawGrid = ((width = 1000, height = 630) => {
       newDiv.style.display = "inline-block";
       newDiv.style.boxSizing = "border-box";
       newDiv.style.border = "1px solid transparent";
-      imageGrid.appendChild(newDiv);
+      grid.appendChild(newDiv);
       divID = divID + 1;
     }
   }
-})();
+};
 
 const displaySelect = (parent) => {
   const select = document.createElement("select");
+  // need to associate id with parent.previousSibling
   parent.appendChild(select);
 
   for (let i = 0; i < characters.length; i++) {
@@ -45,7 +75,7 @@ const displaySelect = (parent) => {
   select.style.transform = "translate(10px, -20px)";
 };
 
-imageGrid.addEventListener("click", (event) => {
+grid.addEventListener("click", (event) => {
   if (event.target.classList.contains("imageTile")) {
     event.target.style.border = "1px solid orange";
     event.target.style.borderRadius = "7px";
@@ -53,6 +83,21 @@ imageGrid.addEventListener("click", (event) => {
 
     displaySelect(event.target.nextSibling);
   }
+});
+
+window.addEventListener("load", () => {
+  sizeContainer();
+  sizeImage();
+  sizeGrid();
+  drawGrid();
+})
+
+sizeForm.addEventListener("change", () => {
+  grid.textContent = "";
+  sizeContainer();
+  sizeImage();
+  sizeGrid();
+  drawGrid();
 });
 
 // TEMPORARY FOR GETTING CHARACTER LOCATIONS

@@ -1,5 +1,11 @@
-<h1>Choose an Exhibit</h1>
+<div style="display:grid;justify-items:center;gap:30px;">
+  
+  <h1 style="margin: 30px 0 0 0;">Choose an Exhibit</h1>
 
-<% @exhibits.each do |exhibit| %>
-  <%= link_to exhibit.title, exhibit_path(exhibit), data: {turbo: false}%>
-<% end %>
+  <% @exhibits.each do |exhibit| %>
+    <%= link_to exhibit_path(exhibit), data: {turbo: false}, style: "width:50%;" do %>
+      <%= image_tag exhibit.image_path, style: "width: 100%;border-radius:10px;" %>
+    <% end %>
+  <% end %>
+
+</div>
