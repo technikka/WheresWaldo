@@ -101,7 +101,7 @@ sizeForm.addEventListener("change", () => {
 });
 
 // TEMPORARY FOR GETTING CHARACTER LOCATIONS
-// imageGrid.addEventListener('click', (event) => {
+// grid.addEventListener('click', (event) => {
 //   if (event.target.style.backgroundColor === "orange") {
 //     event.target.style.backgroundColor = "initial";
 //   } else {
