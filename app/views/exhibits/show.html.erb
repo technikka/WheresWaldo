@@ -43,3 +43,12 @@
     </div>
   </div>
 </div>
+
+<div id="hidden-form">
+  <%= form_with url: '/locations', method: :get, remote: true do |f| %>
+    <%= f.hidden_field :character %>
+    <%= f.hidden_field :exhibit %>
+    <%= f.hidden_field :size %>
+    <%= f.submit id: :query, style: "display:none;" %>
+  <% end %>
+</div>

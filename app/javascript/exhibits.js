@@ -4,6 +4,19 @@ const grid = document.getElementById("grid");
 const image = document.querySelector("#image-grid-container>img");
 const characters = ["Waldo", "Wilma", "Odlaw", "Wizard"];
 
+const hiddenForm = document.getElementById("hidden-form");
+
+const addValuesToHiddenForm = () => {
+  const character = document.getElementById("character");
+  const exhibit = document.getElementById("exhibit");
+  const size = document.getElementById("size");
+  const query = document.getElementById("query");
+  // this will actually be the value of the select box
+  character.value = "Wizard";
+  exhibit.value = "1";
+  size.value = "2"
+  query.click();
+};
 
 const sizeSelected = () => {
   if (document.getElementById("size_small").checked) {
@@ -18,14 +31,14 @@ const sizeImage = () => {
   const size = sizeSelected();
   image.style.width = size.width + "px";
   image.style.height = size.height + "px";
-}
+};
 
 const sizeContainer = () => {
   const size = sizeSelected();
   imageGridContainer.style.fontSize = "0px";
   imageGridContainer.style.width = size.width + "px";
   imageGridContainer.style.height = size.height + "px";
-}
+};
 
 const sizeGrid = () => {
   const size = sizeSelected();
@@ -82,6 +95,8 @@ grid.addEventListener("click", (event) => {
     event.target.style.scale = "4";
 
     displaySelect(event.target.nextSibling);
+
+    addValuesToHiddenForm();
   }
 });
 
@@ -90,7 +105,7 @@ window.addEventListener("load", () => {
   sizeImage();
   sizeGrid();
   drawGrid();
-})
+});
 
 sizeForm.addEventListener("change", () => {
   grid.textContent = "";
