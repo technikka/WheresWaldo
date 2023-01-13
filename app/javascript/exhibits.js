@@ -1,21 +1,27 @@
+import { FetchRequest } from "@rails/request.js";
+
 const sizeForm = document.getElementById("image-size");
 const imageGridContainer = document.getElementById("image-grid-container");
 const grid = document.getElementById("grid");
 const image = document.querySelector("#image-grid-container>img");
 const characters = ["Waldo", "Wilma", "Odlaw", "Wizard"];
 
-const hiddenForm = document.getElementById("hidden-form");
 
-const addValuesToHiddenForm = () => {
-  const character = document.getElementById("character");
-  const exhibit = document.getElementById("exhibit");
-  const size = document.getElementById("size");
-  const query = document.getElementById("query");
-  // this will actually be the value of the select box
-  character.value = "Wizard";
-  exhibit.value = "1";
-  size.value = "2"
-  query.click();
+const getLocations = async (character, exhibit, size) => {
+  const request = new FetchRequest("get", "/locations", {
+    contentType: "application/json",
+    query: {
+      character: character,
+      exhibit: exhibit,
+      size: size
+    },
+    responseKind: "json"
+  });
+  const response = await request.perform();
+  if (response.ok) {
+    const locations = await response.text
+    console.log(locations);
+  }
 };
 
 const sizeSelected = () => {
@@ -76,6 +82,10 @@ const displaySelect = (parent) => {
   // need to associate id with parent.previousSibling
   parent.appendChild(select);
 
+  const label = document.createElement("option");
+  label.text = "Select Character";
+  select.appendChild(label);
+
   for (let i = 0; i < characters.length; i++) {
     let option = document.createElement("option");
     option.value = characters[i];
@@ -86,6 +96,13 @@ const displaySelect = (parent) => {
   select.style.position = "absolute";
   select.style.zIndex = "10";
   select.style.transform = "translate(10px, -20px)";
+
+  // getLocations needs (character, exhibit, size)
+  select.addEventListener("change", (event) => {
+    const character = event.target.value;
+    // ATTENTION: how to find exhibit and size?
+    getLocations(character, "1", "2");
+  });
 };
 
 grid.addEventListener("click", (event) => {
@@ -95,8 +112,6 @@ grid.addEventListener("click", (event) => {
     event.target.style.scale = "4";
 
     displaySelect(event.target.nextSibling);
-
-    addValuesToHiddenForm();
   }
 });
 
