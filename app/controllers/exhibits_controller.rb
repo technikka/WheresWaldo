@@ -8,8 +8,8 @@ class ExhibitsController < ApplicationController
   end
 
   def locations
-    character = Character.find_by(name: request.params[:character]);
-    locations = character.get_locations(request.params[:exhibit], request.params[:size]);
+    character = Character.find(request.params[:character_id]);
+    locations = character.get_locations(request.params[:exhibit_id], request.params[:size_id]);
     @locations = locations.map { |location| location.div }
 
     respond_to do |format|

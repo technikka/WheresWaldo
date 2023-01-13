@@ -4,50 +4,59 @@ const sizeForm = document.getElementById("image-size");
 const imageGridContainer = document.getElementById("image-grid-container");
 const grid = document.getElementById("grid");
 const image = document.querySelector("#image-grid-container>img");
-const characters = ["Waldo", "Wilma", "Odlaw", "Wizard"];
+const characters = ["Waldo", "Wilma", "Wizard", "Odlaw"];
 
+const sizes = {
+  "1": { width: 800, height: 500 },
+  "2": { width: 1000, height: 630 },
+  "3": { width: 1200, height: 750 },
+};
 
-const getLocations = async (character, exhibit, size) => {
+const getLocations = async (character_id, exhibit_id, size_id) => {
   const request = new FetchRequest("get", "/locations", {
     contentType: "application/json",
     query: {
-      character: character,
-      exhibit: exhibit,
-      size: size
+      character_id: character_id,
+      exhibit_id: exhibit_id,
+      size_id: size_id,
     },
-    responseKind: "json"
+    responseKind: "json",
   });
   const response = await request.perform();
   if (response.ok) {
-    const locations = await response.text
+    const locations = await response.text;
     console.log(locations);
   }
 };
 
 const sizeSelected = () => {
-  if (document.getElementById("size_small").checked) {
-    return { width: 800, height: 500 };
-  } else if (document.getElementById("size_large").checked) {
-    return { width: 1200, height: 750 };
+  if (document.getElementById("size_1").checked) {
+    return "1";
+  } else if (document.getElementById("size_3").cheked) {
+    return "3";
   }
-  return { width: 1000, height: 630 }; // default is medium
+  return "2";
+};
+
+const getDimensions = () => {
+  return sizes[sizeSelected()]
 };
 
 const sizeImage = () => {
-  const size = sizeSelected();
+  const size = getDimensions();
   image.style.width = size.width + "px";
   image.style.height = size.height + "px";
 };
 
 const sizeContainer = () => {
-  const size = sizeSelected();
+  const size = getDimensions();
   imageGridContainer.style.fontSize = "0px";
   imageGridContainer.style.width = size.width + "px";
   imageGridContainer.style.height = size.height + "px";
 };
 
 const sizeGrid = () => {
-  const size = sizeSelected();
+  const size = getDimensions();
   grid.style.fontSize = "0px";
   grid.style.width = size.width + "px";
   grid.style.height = size.height + "px";
@@ -55,7 +64,7 @@ const sizeGrid = () => {
 };
 
 const drawGrid = () => {
-  const size = sizeSelected();
+  const size = getDimensions();
   const tilesAcross = size.width / 10;
   const tilesDown = size.height / 10;
 
@@ -97,11 +106,11 @@ const displaySelect = (parent) => {
   select.style.zIndex = "10";
   select.style.transform = "translate(10px, -20px)";
 
-  // getLocations needs (character, exhibit, size)
   select.addEventListener("change", (event) => {
-    const character = event.target.value;
-    // ATTENTION: how to find exhibit and size?
-    getLocations(character, "1", "2");
+    const character_id = characters.indexOf(event.target.value) + 1;
+    const exhibit_id = document.URL.slice(-1);
+    const size_id = sizeSelected();
+    getLocations(character_id, exhibit_id, size_id);
   });
 };
 

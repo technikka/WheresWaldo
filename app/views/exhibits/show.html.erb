@@ -13,15 +13,15 @@
         <h2>Select Image Size:</h2>
         <p>* changing size restarts the game</p>
         <div>
-          <%= f.radio_button :size, "small" %>
+          <%= f.radio_button :size, "1" %>
           <%= f.label :image_size, "800x500 (small)" %>
         </div>
         <div>
-          <%= f.radio_button :size, "medium", checked: true %>
+          <%= f.radio_button :size, "2", checked: true %>
           <%= f.label :image_size, "1000x630 (medium)" %>
         </div>
         <div>
-          <%= f.radio_button :size, "large" %>
+          <%= f.radio_button :size, "3" %>
           <%= f.label :image_size, "1200x750 (large)" %>
         </div>
       <% end %>
