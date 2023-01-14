@@ -20,13 +20,25 @@ class ExhibitsController < ApplicationController
     end
   end
 
+  def get_location
+    @character = Character.find(exhibit_params[:character_id].to_i)
+    @locations = @character.find_locations(
+      exhibit_params[:exhibit_id],
+      exhibit_params[:size_id]
+    ).map { |location| location.div }
+
+    respond_to do |format|
+      format.json { render :json => @locations }
+    end
+  end
+
   def exhibit_params
     params.permit(
       :character_id,
       :exhibit_id,
       :size_id,
       :location_id,
-      :exhibit,
+      :exhibit => {}
     )
   end
 end

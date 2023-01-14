@@ -4,7 +4,7 @@ const sizeForm = document.getElementById("image-size");
 const imageGridContainer = document.getElementById("image-grid-container");
 const grid = document.getElementById("grid");
 const image = document.querySelector("#image-grid-container>img");
-const characters = ["Waldo", "Wilma", "Wizard", "Odlaw"];
+const exhibit_id = document.URL.slice(-1);
 
 const sizes = {
   "1": { width: 800, height: 500 },
@@ -12,7 +12,70 @@ const sizes = {
   "3": { width: 1200, height: 750 },
 };
 
-const validateCharacterFound = async (character_id, exhibit_id, size_id, div_id) => {
+const sizeSelected = () => {
+  if (document.getElementById("size_1").checked) {
+    return "1";
+  } else if (document.getElementById("size_3").cheked) {
+    return "3";
+  }
+  return "2";
+};
+
+const size_id = sizeSelected();
+
+const characters = ["Waldo", "Wilma", "Wizard", "Odlaw"];
+let charactersToFind = ["Waldo", "Wilma", "Wizard", "Odlaw"];
+let charactersAreFound = [];
+
+const getCharacterNameFromId = (id) => {
+  return characters[parseInt(id) - 1]
+}
+
+const getCharacterLocation = async (character_id) => {
+  const request = new FetchRequest("get", "/get_location", {
+    contentType: "application/json",
+    query: {
+      character_id: character_id,
+      exhibit_id: exhibit_id,
+      size_id: size_id,
+    },
+    responseKind: "json",
+  });
+  const response = await request.perform();
+  if (response.ok) {
+    const divs = await response.text;
+    return Object.values(JSON.parse(divs))
+  }
+}
+
+const removeCharacterFromSelectables = async (character_id) => {
+  if (charactersAreFound.includes(getCharacterNameFromId(character_id))) {
+    const divIds = await getCharacterLocation(character_id);
+    for (let i = 0; i < divIds.length; i++) {
+      document.getElementById(divIds[i]).classList.remove("selectable");
+      i += 1;
+    }
+  }
+}
+
+const characterFound = (div_id, character_id) => {
+  const div = document.getElementById(div_id);
+  div.style.border = "1px solid #14D245";
+  const selectDiv = document.querySelector("select").parentElement;
+  selectDiv.innerHTML = "";
+
+  const character = getCharacterNameFromId(character_id);
+  charactersAreFound.push(character);
+  const index = characters.indexOf(character);
+  charactersToFind.splice(index, 1);
+  removeCharacterFromSelectables(character_id);
+}
+
+const characterNotFound = () => {
+
+}
+
+const validateCharacterFound = async (character_id, div_id) => {
   const request = new FetchRequest("get", "/validate_location", {
     contentType: "application/json",
     query: {
@@ -25,18 +88,13 @@ const validateCharacterFound = async (character_id, exhibit_id, size_id, div_id)
   });
   const response = await request.perform();
   if (response.ok) {
-    const boolean = await response.text;
-    console.log(boolean);
+    const found = await response.text;
+    if (found === "true") {
+      characterFound(div_id, character_id);
+    } else {
+      characterNotFound();
+    }
   }
-};
-
-const sizeSelected = () => {
-  if (document.getElementById("size_1").checked) {
-    return "1";
-  } else if (document.getElementById("size_3").cheked) {
-    return "3";
-  }
-  return "2";
 };
 
 const getDimensions = () => {
@@ -75,7 +133,7 @@ const drawGrid = () => {
     for (let i = 0; i < tilesAcross; i++) {
       let newDiv = document.createElement("div");
       newDiv.id = divID;
-      newDiv.className += "imageTile";
+      newDiv.className += "selectable";
       newDiv.style.width = "10px";
       newDiv.style.height = "10px";
       newDiv.style.display = "inline-block";
@@ -96,10 +154,10 @@ const displaySelect = (clickEvent) => {
   label.text = "Select Character";
   select.appendChild(label);
 
-  for (let i = 0; i < characters.length; i++) {
+  for (let i = 0; i < charactersToFind.length; i++) {
     let option = document.createElement("option");
-    option.value = characters[i];
-    option.text = characters[i];
+    option.value = charactersToFind[i];
+    option.text = charactersToFind[i];
     select.appendChild(option);
   }
 
@@ -109,15 +167,13 @@ const displaySelect = (clickEvent) => {
 
   select.addEventListener("change", (event) => {
     const character_id = characters.indexOf(event.target.value) + 1;
-    const exhibit_id = document.URL.slice(-1);
-    const size_id = sizeSelected();
     const div_id = clickEvent.target.id;
-    validateCharacterFound(character_id, exhibit_id, size_id, div_id);
+    validateCharacterFound(character_id, div_id);
   });
 };
 
 grid.addEventListener("click", (event) => {
-  if (event.target.classList.contains("imageTile")) {
+  if (event.target.classList.contains("selectable")) {
     event.target.style.border = "1px solid orange";
     event.target.style.borderRadius = "7px";
     event.target.style.scale = "4";
