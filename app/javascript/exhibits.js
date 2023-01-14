@@ -69,6 +69,11 @@ const characterFound = (div_id, character_id) => {
   const index = characters.indexOf(character);
   charactersToFind.splice(index, 1);
   removeCharacterFromSelectables(character_id);
+
+  const charImg = document.querySelector(`.${character.toLowerCase()}>img`);
+  charImg.style.opacity = "0.5";
+  const charCheck = document.querySelector(`.${character.toLowerCase()}>i`);
+  charCheck.classList.add('show');
 }
 
 const characterNotFound = () => {
