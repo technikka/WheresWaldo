@@ -12,20 +12,21 @@ const sizes = {
   "3": { width: 1200, height: 750 },
 };
 
-const getLocations = async (character_id, exhibit_id, size_id) => {
-  const request = new FetchRequest("get", "/locations", {
+const validateCharacterFound = async (character_id, exhibit_id, size_id, div_id) => {
+  const request = new FetchRequest("get", "/validate_location", {
     contentType: "application/json",
     query: {
       character_id: character_id,
       exhibit_id: exhibit_id,
       size_id: size_id,
+      location_id: div_id
     },
     responseKind: "json",
   });
   const response = await request.perform();
   if (response.ok) {
-    const locations = await response.text;
-    console.log(locations);
+    const boolean = await response.text;
+    console.log(boolean);
   }
 };
 
@@ -86,10 +87,10 @@ const drawGrid = () => {
   }
 };
 
-const displaySelect = (parent) => {
+const displaySelect = (clickEvent) => {
   const select = document.createElement("select");
   // need to associate id with parent.previousSibling
-  parent.appendChild(select);
+  clickEvent.target.nextSibling.appendChild(select);
 
   const label = document.createElement("option");
   label.text = "Select Character";
@@ -110,7 +111,8 @@ const displaySelect = (parent) => {
     const character_id = characters.indexOf(event.target.value) + 1;
     const exhibit_id = document.URL.slice(-1);
     const size_id = sizeSelected();
-    getLocations(character_id, exhibit_id, size_id);
+    const div_id = clickEvent.target.id;
+    validateCharacterFound(character_id, exhibit_id, size_id, div_id);
   });
 };
 
@@ -120,7 +122,7 @@ grid.addEventListener("click", (event) => {
     event.target.style.borderRadius = "7px";
     event.target.style.scale = "4";
 
-    displaySelect(event.target.nextSibling);
+    displaySelect(event);
   }
 });
 

@@ -7,13 +7,26 @@ class ExhibitsController < ApplicationController
     @exhibit = Exhibit.find(params[:id])
   end
 
-  def locations
-    character = Character.find(request.params[:character_id]);
-    locations = character.get_locations(request.params[:exhibit_id], request.params[:size_id]);
-    @locations = locations.map { |location| location.div }
+  def validate_location
+    @validated = Location.validate(
+      exhibit_params[:character_id],
+      exhibit_params[:exhibit_id], 
+      exhibit_params[:size_id], 
+      exhibit_params[:location_id]
+    )
 
     respond_to do |format|
-      format.json { render :json => @locations }
+      format.json { render :json => @validated }
     end
+  end
+
+  def exhibit_params
+    params.permit(
+      :character_id,
+      :exhibit_id,
+      :size_id,
+      :location_id,
+      :exhibit,
+    )
   end
 end
