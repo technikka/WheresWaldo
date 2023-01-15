@@ -6,6 +6,11 @@ const grid = document.getElementById("grid");
 const image = document.querySelector("#image-grid-container>img");
 const exhibit_id = document.URL.slice(-1);
 
+const minDiv = document.getElementsByClassName("minutes")[0];
+const secDiv = document.getElementsByClassName("seconds")[0];
+let timeMin = 0;
+let timeSec = 0;
+
 const neutralCircleColor = "rgb(20, 123, 210)";
 const foundCircleColor = "rgb(20, 210, 69)";
 const failCircleColor = "rgb(210, 20, 47)";
@@ -229,11 +234,36 @@ grid.addEventListener("click", (event) => {
   }
 });
 
+const timerTick = () => {
+  if (timeSec < 59) {
+    timeSec += 1;
+    if (timeSec < 10) {
+      secDiv.textContent = "0" + timeSec;
+    } else {
+      secDiv.textContent = timeSec;
+    } 
+  } else if (timeSec === 59) {
+    timeMin += 1;
+    if (timeMin < 10) {
+      minDiv.textContent = "0" + timeMin;
+    } else {
+      minDiv.textContent = timeMin;
+    }
+    timeSec = 0;
+    secDiv.textContent = "00";
+  }
+}
+
+const timerStart = () => {
+  setInterval(timerTick, 1000);
+}
+
 window.addEventListener("load", () => {
   sizeContainer();
   sizeImage();
   sizeGrid();
   drawGrid();
+  timerStart();
 });
 
 sizeForm.addEventListener("change", () => {
