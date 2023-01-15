@@ -16,6 +16,7 @@ const foundCircleColor = "rgb(20, 210, 69)";
 const failCircleColor = "rgb(210, 20, 47)";
 
 let previousClick;
+let timeInterval;
 
 const sizes = {
   "1": { width: 800, height: 500 },
@@ -39,8 +40,8 @@ let charactersToFind = ["Waldo", "Wilma", "Wizard", "Odlaw"];
 let charactersAreFound = [];
 
 const getCharacterNameFromId = (id) => {
-  return characters[parseInt(id) - 1]
-}
+  return characters[parseInt(id) - 1];
+};
 
 const getCharacterLocation = async (character_id) => {
   const request = new FetchRequest("get", "/get_location", {
@@ -55,9 +56,9 @@ const getCharacterLocation = async (character_id) => {
   const response = await request.perform();
   if (response.ok) {
     const divs = await response.text;
-    return Object.values(JSON.parse(divs))
+    return Object.values(JSON.parse(divs));
   }
-}
+};
 
 const removeCharacterFromSelectables = async (character_id) => {
   if (charactersAreFound.includes(getCharacterNameFromId(character_id))) {
@@ -66,7 +67,18 @@ const removeCharacterFromSelectables = async (character_id) => {
       document.getElementById(divIds[i]).classList.remove("selectable");
     }
   }
-}
+};
+
+const allCharactersFound = () => {
+  if (charactersToFind.length === 0) {
+    return true;
+  }
+  return false;
+};
+
+const handleScore = () => {
+  clearInterval(timeInterval);
+};
 
 const characterFound = (div_id, character_id) => {
   const div = document.getElementById(div_id);
@@ -76,15 +88,19 @@ const characterFound = (div_id, character_id) => {
 
   const character = getCharacterNameFromId(character_id);
   charactersAreFound.push(character);
-  const index = characters.indexOf(character);
+  const index = charactersToFind.indexOf(character);
   charactersToFind.splice(index, 1);
   removeCharacterFromSelectables(character_id);
 
   const charImg = document.querySelector(`.${character.toLowerCase()}>img`);
   charImg.style.opacity = "0.5";
   const charCheck = document.querySelector(`.${character.toLowerCase()}>i`);
-  charCheck.classList.add('show');
-}
+  charCheck.classList.add("show");
+
+  if (allCharactersFound() === true) {
+    handleScore();
+  }
+};
 
 const displayMsg = (parent, character_id) => {
   const msg = document.createElement("p");
@@ -99,7 +115,7 @@ const displayMsg = (parent, character_id) => {
   msg.style.borderRadius = "8px";
   msg.style.transform = "translate(30px, -20px)";
   parent.appendChild(msg);
-}
+};
 
 const characterNotFound = (div_id, character_id) => {
   const div = document.getElementById(div_id);
@@ -107,7 +123,7 @@ const characterNotFound = (div_id, character_id) => {
   const selectDiv = document.querySelector("select").parentElement;
   selectDiv.innerHTML = "";
   displayMsg(selectDiv, character_id);
-}
+};
 
 const validateCharacterFound = async (character_id, div_id) => {
   const request = new FetchRequest("get", "/validate_location", {
@@ -116,7 +132,7 @@ const validateCharacterFound = async (character_id, div_id) => {
       character_id: character_id,
       exhibit_id: exhibit_id,
       size_id: size_id,
-      location_id: div_id
+      location_id: div_id,
     },
     responseKind: "json",
   });
@@ -132,7 +148,7 @@ const validateCharacterFound = async (character_id, div_id) => {
 };
 
 const getDimensions = () => {
-  return sizes[sizeSelected()]
+  return sizes[sizeSelected()];
 };
 
 const sizeImage = () => {
@@ -211,7 +227,7 @@ const clearPrevClick = () => {
     if (previousClick.style.borderColor !== foundCircleColor) {
       previousClick.style.border = "none";
     }
-    const select = document.querySelector("select")
+    const select = document.querySelector("select");
     if (select) {
       select.parentElement.innerHTML = "";
     }
@@ -220,7 +236,7 @@ const clearPrevClick = () => {
       msg.parentElement.textContent = "";
     }
   }
-}
+};
 
 grid.addEventListener("click", (event) => {
   if (event.target.classList.contains("selectable")) {
@@ -241,7 +257,7 @@ const timerTick = () => {
       secDiv.textContent = "0" + timeSec;
     } else {
       secDiv.textContent = timeSec;
-    } 
+    }
   } else if (timeSec === 59) {
     timeMin += 1;
     if (timeMin < 10) {
@@ -252,11 +268,13 @@ const timerTick = () => {
     timeSec = 0;
     secDiv.textContent = "00";
   }
-}
+};
 
 const timerStart = () => {
-  setInterval(timerTick, 1000);
-}
+  if (!timeInterval) {
+    timeInterval = setInterval(timerTick, 1000);
+  }
+};
 
 window.addEventListener("load", () => {
   sizeContainer();
