@@ -6,6 +6,8 @@ const grid = document.getElementById("grid");
 const image = document.querySelector("#image-grid-container>img");
 const exhibit_id = document.URL.slice(-1);
 
+let previousClick;
+
 const sizes = {
   "1": { width: 800, height: 500 },
   "2": { width: 1000, height: 630 },
@@ -75,8 +77,27 @@ const characterFound = (div_id, character_id) => {
   charCheck.classList.add('show');
 }
 
-const characterNotFound = () => {
+const displayMsg = (parent, character_id) => {
+  const msg = document.createElement("p");
+  msg.id = "selectFailMsg";
+  msg.textContent = `That's not ${getCharacterNameFromId(character_id)}`;
+  msg.style.position = "absolute";
+  msg.style.zIndex = "10";
+  msg.style.fontSize = "16px";
+  msg.style.padding = "10px";
+  msg.style.backgroundColor = "red";
+  msg.style.color = "white";
+  msg.style.borderRadius = "8px";
+  msg.style.transform = "translate(30px, -20px)";
+  parent.appendChild(msg);
+}
 
+const characterNotFound = (div_id, character_id) => {
+  const div = document.getElementById(div_id);
+  div.style.border = "1px solid red";
+  const selectDiv = document.querySelector("select").parentElement;
+  selectDiv.innerHTML = "";
+  displayMsg(selectDiv, character_id);
 }
 
 const validateCharacterFound = async (character_id, div_id) => {
@@ -96,7 +117,7 @@ const validateCharacterFound = async (character_id, div_id) => {
     if (found === "true") {
       characterFound(div_id, character_id);
     } else {
-      characterNotFound();
+      characterNotFound(div_id, character_id);
     }
   }
 };
@@ -176,8 +197,26 @@ const displaySelect = (clickEvent) => {
   });
 };
 
+const clearPrevClick = () => {
+  if (previousClick) {
+    if (previousClick.style.borderColor !== "rgb(20, 210, 69)") {
+      previousClick.style.border = "none";
+    }
+    const select = document.querySelector("select")
+    if (select) {
+      select.parentElement.innerHTML = "";
+    }
+    const msg = document.getElementById("selectFailMsg");
+    if (msg) {
+      msg.parentElement.textContent = "";
+    }
+  }
+}
+
 grid.addEventListener("click", (event) => {
   if (event.target.classList.contains("selectable")) {
+    clearPrevClick();
+    previousClick = event.target;
     event.target.style.border = "1px solid orange";
     event.target.style.borderRadius = "7px";
     event.target.style.scale = "4";
