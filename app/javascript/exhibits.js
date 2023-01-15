@@ -15,7 +15,7 @@ const sizes = {
 const sizeSelected = () => {
   if (document.getElementById("size_1").checked) {
     return "1";
-  } else if (document.getElementById("size_3").cheked) {
+  } else if (document.getElementById("size_3").checked) {
     return "3";
   }
   return "2";
@@ -53,7 +53,6 @@ const removeCharacterFromSelectables = async (character_id) => {
     const divIds = await getCharacterLocation(character_id);
     for (let i = 0; i < divIds.length; i++) {
       document.getElementById(divIds[i]).classList.remove("selectable");
-      i += 1;
     }
   }
 }
