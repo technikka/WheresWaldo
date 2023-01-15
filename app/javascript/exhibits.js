@@ -6,6 +6,10 @@ const grid = document.getElementById("grid");
 const image = document.querySelector("#image-grid-container>img");
 const exhibit_id = document.URL.slice(-1);
 
+const neutralCircleColor = "rgb(20, 123, 210)";
+const foundCircleColor = "rgb(20, 210, 69)";
+const failCircleColor = "rgb(210, 20, 47)";
+
 let previousClick;
 
 const sizes = {
@@ -61,7 +65,7 @@ const removeCharacterFromSelectables = async (character_id) => {
 
 const characterFound = (div_id, character_id) => {
   const div = document.getElementById(div_id);
-  div.style.border = "1px solid #14D245";
+  div.style.border = `1px solid ${foundCircleColor}`;
   const selectDiv = document.querySelector("select").parentElement;
   selectDiv.innerHTML = "";
 
@@ -85,7 +89,7 @@ const displayMsg = (parent, character_id) => {
   msg.style.zIndex = "10";
   msg.style.fontSize = "16px";
   msg.style.padding = "10px";
-  msg.style.backgroundColor = "red";
+  msg.style.backgroundColor = failCircleColor;
   msg.style.color = "white";
   msg.style.borderRadius = "8px";
   msg.style.transform = "translate(30px, -20px)";
@@ -94,7 +98,7 @@ const displayMsg = (parent, character_id) => {
 
 const characterNotFound = (div_id, character_id) => {
   const div = document.getElementById(div_id);
-  div.style.border = "1px solid red";
+  div.style.border = `1px solid ${failCircleColor}`;
   const selectDiv = document.querySelector("select").parentElement;
   selectDiv.innerHTML = "";
   displayMsg(selectDiv, character_id);
@@ -199,7 +203,7 @@ const displaySelect = (clickEvent) => {
 
 const clearPrevClick = () => {
   if (previousClick) {
-    if (previousClick.style.borderColor !== "rgb(20, 210, 69)") {
+    if (previousClick.style.borderColor !== foundCircleColor) {
       previousClick.style.border = "none";
     }
     const select = document.querySelector("select")
@@ -217,7 +221,7 @@ grid.addEventListener("click", (event) => {
   if (event.target.classList.contains("selectable")) {
     clearPrevClick();
     previousClick = event.target;
-    event.target.style.border = "1px solid orange";
+    event.target.style.border = `1px solid ${neutralCircleColor}`;
     event.target.style.borderRadius = "7px";
     event.target.style.scale = "4";
 
