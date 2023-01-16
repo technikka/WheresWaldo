@@ -268,3 +268,135 @@ character4.each do |location|
     character_id: 4
   )
 end
+
+# Exhibit 3 : The Great Portrait Exhibition
+# Size 1 : small 800x500
+
+character1 = [1652, 1651]
+character2 = [2880, 2960, 2879, 2959]
+character3 = [1508, 1588, 1507, 1428]
+character4 = [2811, 2891, 2810]
+
+character1.each do |location|
+  Location.create(
+    div: "#{location}",
+    exhibit_id: 3,
+    size_id: 1,
+    character_id: 1
+  )
+end
+
+character2.each do |location|
+  Location.create(
+    div: "#{location}",
+    exhibit_id: 3,
+    size_id: 1,
+    character_id: 2
+  )
+end
+
+character3.each do |location|
+  Location.create(
+    div: "#{location}",
+    exhibit_id: 3,
+    size_id: 1,
+    character_id: 3
+  )
+end
+
+character4.each do |location|
+  Location.create(
+    div: "#{location}",
+    exhibit_id: 3,
+    size_id: 1,
+    character_id: 4
+  )
+end
+
+# Exhibit 3 : The Great Portrait Exhibition
+# Size 2 : medium 1000x630
+
+character1 = [2664, 2665, 2564, 2565]
+character2 = [4499, 4599, 4600, 4500]
+character3 = [2284, 2285, 2385, 2384, 2485, 2484]
+character4 = [4514, 4513, 4614, 4413]
+
+character1.each do |location|
+  Location.create(
+    div: "#{location}",
+    exhibit_id: 3,
+    size_id: 2,
+    character_id: 1
+  )
+end
+
+character2.each do |location|
+  Location.create(
+    div: "#{location}",
+    exhibit_id: 3,
+    size_id: 2,
+    character_id: 2
+  )
+end
+
+character3.each do |location|
+  Location.create(
+    div: "#{location}",
+    exhibit_id: 3,
+    size_id: 2,
+    character_id: 3
+  )
+end
+
+character4.each do |location|
+  Location.create(
+    div: "#{location}",
+    exhibit_id: 3,
+    size_id: 2,
+    character_id: 4
+  )
+end
+
+# Exhibit 3 : The Great Portrait Exhibition
+# Size 3 : large 1200x750
+
+character1 = [3798, 3797, 3678, 3677, 3676]
+character2 = [6479, 6599, 6600, 6480]
+character3 = [3221, 3341, 3461, 3462, 3342, 3222]
+character4 = [6497, 6496, 6377, 6376, 6375]
+
+character1.each do |location|
+  Location.create(
+    div: "#{location}",
+    exhibit_id: 3,
+    size_id: 3,
+    character_id: 1
+  )
+end
+
+character2.each do |location|
+  Location.create(
+    div: "#{location}",
+    exhibit_id: 3,
+    size_id: 3,
+    character_id: 2
+  )
+end
+
+character3.each do |location|
+  Location.create(
+    div: "#{location}",
+    exhibit_id: 3,
+    size_id: 3,
+    character_id: 3
+  )
+end
+
+character4.each do |location|
+  Location.create(
+    div: "#{location}",
+    exhibit_id: 3,
+    size_id: 3,
+    character_id: 4
+  )
+end

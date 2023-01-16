@@ -266,17 +266,17 @@ const clearPrevClick = () => {
   }
 };
 
-grid.addEventListener("click", (event) => {
-  if (event.target.classList.contains("selectable")) {
-    clearPrevClick();
-    previousClick = event.target;
-    event.target.style.border = `1px solid ${neutralCircleColor}`;
-    event.target.style.borderRadius = "7px";
-    event.target.style.scale = "4";
+// grid.addEventListener("click", (event) => {
+//   if (event.target.classList.contains("selectable")) {
+//     clearPrevClick();
+//     previousClick = event.target;
+//     event.target.style.border = `1px solid ${neutralCircleColor}`;
+//     event.target.style.borderRadius = "7px";
+//     event.target.style.scale = "4";
 
-    displaySelect(event);
-  }
-});
+//     displaySelect(event);
+//   }
+// });
 
 const timerTick = () => {
   if (timeSec < 59) {
@@ -333,11 +333,11 @@ sizeForm.addEventListener("change", () => {
 });
 
 // TEMPORARY FOR GETTING CHARACTER LOCATIONS
-// grid.addEventListener('click', (event) => {
-//   if (event.target.style.backgroundColor === neutralCircleColor) {
-//     event.target.style.backgroundColor = "initial";
-//   } else {
-//     event.target.style.backgroundColor = neutralCircleColor;
-//   }
-//   console.log(event.target);
-// })
+grid.addEventListener('click', (event) => {
+  if (event.target.style.backgroundColor === neutralCircleColor) {
+    event.target.style.backgroundColor = "initial";
+  } else {
+    event.target.style.backgroundColor = neutralCircleColor;
+  }
+  console.log(event.target);
+})

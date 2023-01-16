@@ -34,6 +34,8 @@
   width: max-content;
   display: grid;
   justify-items: center;
+  /* TEMPORARY */
+  margin-right: 200px;
 }
 
 .image-size h2 {
