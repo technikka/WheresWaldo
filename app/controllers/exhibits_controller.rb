@@ -1,6 +1,6 @@
 class ExhibitsController < ApplicationController
   def index
-    @exhibits = Exhibit.all
+    @exhibits = Exhibit.all.order(:id)
   end
 
   def show

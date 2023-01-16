@@ -329,11 +329,7 @@ window.addEventListener("load", () => {
 });
 
 sizeForm.addEventListener("change", () => {
-  grid.textContent = "";
-  sizeContainer();
-  sizeImage();
-  sizeGrid();
-  drawGrid();
+  location.reload();
 });
 
 // TEMPORARY FOR GETTING CHARACTER LOCATIONS
