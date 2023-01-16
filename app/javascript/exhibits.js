@@ -6,6 +6,8 @@ const grid = document.getElementById("grid");
 const image = document.querySelector("#image-grid-container>img");
 const exhibit_id = document.URL.slice(-1);
 
+let exhibit_high_score;
+
 const minDiv = document.getElementsByClassName("minutes")[0];
 const secDiv = document.getElementsByClassName("seconds")[0];
 let timeMin = 0;
@@ -76,8 +78,30 @@ const allCharactersFound = () => {
   return false;
 };
 
+const updateHighScore = async (current_score) => {
+  const request = new FetchRequest("put", "/update_high_score", {
+    contentType: "application/json",
+    query: {
+      exhibit_id: exhibit_id,
+      new_high_score: current_score
+    },
+    responseKind: "json",
+  });
+  const response = await request.perform();
+  if (response.ok) {
+    console.log("update high score response ok");
+  }
+}
+
 const handleScore = () => {
   clearInterval(timeInterval);
+  const current_score = `${timeMin}:${timeSec}`;
+  console.log("current_score: " + current_score);
+  if (exhibit_high_score === null || current_score < exhibit_high_score) {
+    updateHighScore(current_score);
+  } else {
+    console.log('did not update high score');
+  }
 };
 
 const characterFound = (div_id, character_id) => {
@@ -99,6 +123,8 @@ const characterFound = (div_id, character_id) => {
 
   if (allCharactersFound() === true) {
     handleScore();
+  } else {
+    console.log("line 110: all characters are not found: " + charactersToFind);
   }
 };
 
@@ -276,12 +302,30 @@ const timerStart = () => {
   }
 };
 
+const get_high_score = async () => {
+  const request = new FetchRequest("get", "/get_high_score", {
+    contentType: "application/json",
+    query: {
+      exhibit_id: exhibit_id
+    },
+    responseKind: "json",
+  });
+  const response = await request.perform();
+  if (response.ok) {
+    const score = await response.text;
+    // return Object.values(JSON.parse(divs));
+    console.log("line 293: retrieving high score: " + score);
+    exhibit_high_score = score;
+  }
+}
+
 window.addEventListener("load", () => {
   sizeContainer();
   sizeImage();
   sizeGrid();
   drawGrid();
   timerStart();
+  get_high_score();
 });
 
 sizeForm.addEventListener("change", () => {

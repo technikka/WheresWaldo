@@ -7,6 +7,21 @@ class ExhibitsController < ApplicationController
     @exhibit = Exhibit.find(params[:id])
   end
 
+  def get_high_score
+    @exhibit = Exhibit.find(exhibit_params[:exhibit_id])
+
+    respond_to do |format|
+      format.json { render :json => @exhibit.high_score }
+    end
+  end
+
+  # PUT 
+  def update_high_score
+    @exhibit = Exhibit.find(exhibit_params[:exhibit_id])
+    @exhibit.update(high_score: exhibit_params[:new_high_score])
+    head :created
+  end
+
   def validate_location
     @validated = Location.validate(
       exhibit_params[:character_id],
@@ -16,7 +31,7 @@ class ExhibitsController < ApplicationController
     )
 
     respond_to do |format|
-      format.json { render :json => @validated }
+      format.json { render :json => @validated , status: :ok }
     end
   end
 
@@ -28,7 +43,7 @@ class ExhibitsController < ApplicationController
     ).map { |location| location.div }
 
     respond_to do |format|
-      format.json { render :json => @locations }
+      format.json { render :json => @locations , status: :ok}
     end
   end
 
@@ -38,6 +53,7 @@ class ExhibitsController < ApplicationController
       :exhibit_id,
       :size_id,
       :location_id,
+      :new_high_score,
       :exhibit => {}
     )
   end
