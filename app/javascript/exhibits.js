@@ -338,10 +338,10 @@ sizeForm.addEventListener("change", () => {
 
 // TEMPORARY FOR GETTING CHARACTER LOCATIONS
 // grid.addEventListener('click', (event) => {
-//   if (event.target.style.backgroundColor === "orange") {
+//   if (event.target.style.backgroundColor === neutralCircleColor) {
 //     event.target.style.backgroundColor = "initial";
 //   } else {
-//     event.target.style.backgroundColor = "orange";
+//     event.target.style.backgroundColor = neutralCircleColor;
 //   }
 //   console.log(event.target);
 // })
