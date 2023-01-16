@@ -87,20 +87,24 @@ const updateHighScore = async (current_score) => {
     },
     responseKind: "json",
   });
-  const response = await request.perform();
-  if (response.ok) {
-    console.log("update high score response ok");
-  }
+  request.perform();
+}
+
+const alertNewScore = () => {
+  const div = document.getElementById("high-score").firstElementChild;
+  div.textContent = "New Best Time!!";
+  div.style.color = foundCircleColor;
+  div.style.fontSize = "20px";
+  const timer = document.getElementById("timer");
+  timer.style.color = foundCircleColor;
 }
 
 const handleScore = () => {
   clearInterval(timeInterval);
   const current_score = `${timeMin}:${timeSec}`;
-  console.log("current_score: " + current_score);
   if (exhibit_high_score === null || current_score < exhibit_high_score) {
     updateHighScore(current_score);
-  } else {
-    console.log('did not update high score');
+    alertNewScore();
   }
 };
 
@@ -123,8 +127,6 @@ const characterFound = (div_id, character_id) => {
 
   if (allCharactersFound() === true) {
     handleScore();
-  } else {
-    console.log("line 110: all characters are not found: " + charactersToFind);
   }
 };
 
@@ -313,8 +315,6 @@ const get_high_score = async () => {
   const response = await request.perform();
   if (response.ok) {
     const score = await response.text;
-    // return Object.values(JSON.parse(divs));
-    console.log("line 293: retrieving high score: " + score);
     exhibit_high_score = score;
   }
 }

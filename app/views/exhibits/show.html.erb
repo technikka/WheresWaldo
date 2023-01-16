@@ -46,6 +46,15 @@
       </div>
     </div>
 
+    <div id="high-score">
+      <div></div>
+      <% if @exhibit.high_score %>
+        <%= "Best time: " + @exhibit.high_score %>
+      <% else %>
+        <%= "Best time not yet recorded" %>
+      <% end %>
+    </div>
+
     <div id="timer">
       <div class="minutes">00</div>
       <div>:</div>
