@@ -2,14 +2,59 @@
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 
 
+Location.destroy_all
+Exhibit.destroy_all
+Character.destroy_all
+Size.destroy_all
+
+
+
+# Exhibits
+
+exhibits = [
+  {"Ski Slopes": "ski_slopes.jpg"}, 
+  {"On The Beach": "on_the_beach.jpg"}, 
+  {"The Great Portrait Exhibition": "the_great_portrait_exhibition.jpg"}
+]
+
+exhibits.each do |exhibit|
+  Exhibit.create(
+    title: exhibit.keys[0],
+    image_path: exhibit.values[0]
+  )
+end
+
+
+# Characters
+
+characters = ["Waldo", "Wilma", "Wizard", "Odlaw"]
+
+characters.each do |char|
+  Character.create(
+    name: char
+  )
+end
+
+
+# Sizes
+
+sizes = ["800x500", "1000x630", "1200x750"]
+
+sizes.each do |size|
+  Size.create(
+    dimensions: size
+  )
+end
+
+
+# Locations
+
 # Exhibit 1 : Ski Slopes
 # Size 1 : small 800x500
 character1 = [3109, 3029, 3028, 3030, 2949, 2869, 2948]
 character2 = [1720, 1719, 1640, 1639]
 character3 = [3046, 2966]
 character4 = [2506, 2586]
-
-Location.destroy_all
 
 character1.each do |location|
   Location.create(
@@ -46,7 +91,6 @@ character4.each do |location|
     character_id: 4
   )
 end
-
 
 # Exhibit 1 : Ski Slopes
 # Size 2 : medium 1000x630
@@ -91,7 +135,6 @@ character4.each do |location|
     character_id: 4
   )
 end
-
 
 # Exhibit 1 : Ski Slopes
 # Size 3 : large 1200x750
