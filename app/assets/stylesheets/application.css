@@ -14,10 +14,46 @@
  *= require_self
  */
 
- /* body {
+html {
+  font-family: 'Roboto Mono', monospace;
+}
+
+.index-container {
   display: grid;
-  justify-content: center;
- } */
+  justify-items: center;
+  gap: 30px;
+}
+
+.index-container h1 {
+  margin: 30px 0 0 0;
+  font-size: 26px;
+}
+
+.index-container a {
+  width: 40vh;
+}
+
+.info {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.6);
+  width: inherit;
+  padding: 10px;
+  visibility: hidden;
+}
+
+.info p {
+  font-size: 20px;
+  margin: 10px;
+}
+
+.info.show {
+  visibility: visible;
+}
+
+.index-container img {
+  width: 100%;
+  border-radius: 10px;
+}
 
  .exhibit-content {
   width: max-content;

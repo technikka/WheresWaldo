@@ -1,10 +1,33 @@
-<div style="display:grid;justify-items:center;gap:30px;">
+<%= content_for :javascript do %>
+  <%= javascript_import_module_tag "index" %>
+<% end %>
+
+<div class="index-container">
   
-  <h1 style="margin: 30px 0 0 0;">Choose an Exhibit</h1>
+  <h1>Choose an Exhibit</h1>
 
   <% @exhibits.each do |exhibit| %>
-    <%= link_to exhibit_path(exhibit), data: {turbo: false}, style: "width:50%;" do %>
-      <%= image_tag exhibit.image_path, style: "width: 100%;border-radius:10px;" %>
+    <%= link_to exhibit_path(exhibit), data: {turbo: false}, class: "exhibit_#{exhibit.id}" do %>
+      <div class="info">
+        <p><%= exhibit.title %></p>
+
+        <% if exhibit.id === 1 %>
+          <p>Easy</p>
+        <% elsif exhibit.id === 2 %>
+          <p>Medium</p>
+        <% else %>
+          <p>Hard</p>
+        <% end %>
+
+        <p>Best Time: 
+          <% if exhibit.high_score %>
+            <%= exhibit.high_score %>
+          <% else %>
+            Not Yet Recorded
+          <% end %>
+        </p>
+      </div>
+      <%= image_tag exhibit.image_path %>
     <% end %>
   <% end %>
 
