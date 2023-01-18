@@ -141,8 +141,8 @@ nav {
 .characters div i {
   filter: invert(58%) sepia(84%) saturate(537%) hue-rotate(82deg) brightness(93%) contrast(93%);
   position: relative;
-  bottom: 70px;
-  left: 5px;
+  bottom: 55px;
+  left: 40px;
   visibility: hidden; 
 }
 

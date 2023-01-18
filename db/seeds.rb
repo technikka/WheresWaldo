@@ -48,6 +48,10 @@ end
 
 
 # Locations
+# character1 = waldo
+# character2 = wilma
+# character3 = wizard
+# character4 = odlaw
 
 # Exhibit 1 : Ski Slopes
 # Size 1 : small 800x500
@@ -96,7 +100,7 @@ end
 # Size 2 : medium 1000x630
 character1 = [4886, 4786, 4686, 4787, 4687, 4785, 4685, 4586]
 character2 = [2749, 2650, 2649, 2750, 2550, 2549]
-character3 = [4807, 4808, 4708, 4707, 4607]
+character3 = [4707, 4607, 4608, 4708, 4807, 4808, 4908]
 character4 = [3932, 4032, 4033, 3933]
 
 

@@ -326,20 +326,10 @@ window.addEventListener("load", () => {
   sizeImage();
   sizeGrid();
   drawGrid();
-  // timerStart();
+  timerStart();
   get_high_score();
 });
 
 sizeForm.addEventListener("change", () => {
   location.reload();
 });
-
-// TEMPORARY FOR GETTING CHARACTER LOCATIONS
-// grid.addEventListener('click', (event) => {
-//   if (event.target.style.backgroundColor === neutralCircleColor) {
-//     event.target.style.backgroundColor = "initial";
-//   } else {
-//     event.target.style.backgroundColor = neutralCircleColor;
-//   }
-//   console.log(event.target);
-// })
