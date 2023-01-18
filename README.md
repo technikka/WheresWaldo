@@ -27,4 +27,4 @@ Ultimately, I don't feel this project makes a lot of sense as a Rails app with 3
 
 
 <img src="/public/screenshots/wheres_waldo_indexpage_crop.jpg" height="650" alt="screenshot of application's landing page" title="screenshot of application's landing page">
-
+* Showing the mouseover event that displays exhibit information. 
