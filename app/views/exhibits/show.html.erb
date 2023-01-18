@@ -11,7 +11,7 @@
     <div id="image-size">
       <%= form_with do |f| %>
         <h2>Image Size</h2>
-        <p>*changing refreshes the browser</p>
+        <p>*changing restarts the game</p>
         <div class="size-options">
           <div>
             <%= f.radio_button :size, "1" %>
@@ -60,7 +60,7 @@
           <% if @exhibit.high_score %>
             <%= "Best time: " + @exhibit.high_score %>
           <% else %>
-            <%= "Best time not yet recorded" %>
+            <%= "Best time: --" %>
           <% end %>
         </div>
         <div id="timer">
