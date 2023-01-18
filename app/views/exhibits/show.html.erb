@@ -2,76 +2,82 @@
   <%= javascript_import_module_tag "exhibits" %>
 <% end %>
 
-<nav>
-  <%= link_to "Back To Exhibits", exhibits_path %>
-</nav>
-
-<div id="image-size">
-  <%= form_with do |f| %>
-    <h2>Select Image Size:</h2>
-    <p>* changing size restarts the game</p>
-    <div>
-      <%= f.radio_button :size, "1" %>
-      <%= f.label :image_size, "800x500 (small)" %>
-    </div>
-    <div>
-      <%= f.radio_button :size, "2", checked: true %>
-      <%= f.label :image_size, "1000x630 (medium)" %>
-    </div>
-    <div>
-      <%= f.radio_button :size, "3" %>
-      <%= f.label :image_size, "1200x750 (large)" %>
-    </div>
-  <% end %>
-</div>
-
-<div class="exhibit-content">
-  <div class="characters">
-    <div class="waldo">
-      <p>Waldo</p>
-      <%= image_tag("waldo.png") %>
-      <i class="fa-regular fa-circle-check fa-2xl"></i>
-    </div>
-    <div class="wilma">
-      <p>Wilma</p>
-      <%= image_tag("wilma.png") %>
-      <i class="fa-regular fa-circle-check fa-2xl"></i>
-    </div>
-    <div class="wizard">
-      <p>Wizard</p>
-      <%= image_tag("wizard_whitebeard.png") %>
-      <i class="fa-regular fa-circle-check fa-2xl"></i>
-    </div>
-    <div class="odlaw">
-      <p>Odlaw</p>
-      <%= image_tag("odlaw.png") %>
-      <i class="fa-regular fa-circle-check fa-2xl"></i>
+<div class="page-content">
+  <div class="top-panel">
+    <nav>
+      <%= link_to "Back To Exhibits", exhibits_path %>
+    </nav>
+  
+    <div id="image-size">
+      <%= form_with do |f| %>
+        <h2>Image Size</h2>
+        <p>*changing refreshes the browser</p>
+        <div class="size-options">
+          <div>
+            <%= f.radio_button :size, "1" %>
+            <%= f.label :image_size, "800x500 (small)" %>
+          </div>
+          <div>
+            <%= f.radio_button :size, "2", checked: true %>
+            <%= f.label :image_size, "1000x630 (medium)" %>
+          </div>
+          <div>
+            <%= f.radio_button :size, "3" %>
+            <%= f.label :image_size, "1200x750 (large)" %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
   
-  <div class="right-panel">
-    <div class="score-panel">
-      <div id="high-score">
-        <% if @exhibit.high_score %>
-          <%= "Best time: " + @exhibit.high_score %>
-        <% else %>
-          <%= "Best time not yet recorded" %>
-        <% end %>
+  <div class="exhibit-content">
+    <div class="characters">
+      <div class="waldo">
+        <p>Waldo</p>
+        <%= image_tag("waldo.png") %>
+        <i class="fa-regular fa-circle-check fa-2xl"></i>
       </div>
-      <div id="timer">
-        <div class="minutes">00</div>
-        <div>:</div>
-        <div class="seconds">00</div>
-        <div class="score-msg"></div>
+      <div class="wilma">
+        <p>Wilma</p>
+        <%= image_tag("wilma.png") %>
+        <i class="fa-regular fa-circle-check fa-2xl"></i>
       </div>
-      
+      <div class="wizard">
+        <p>Wizard</p>
+        <%= image_tag("wizard_whitebeard.png") %>
+        <i class="fa-regular fa-circle-check fa-2xl"></i>
+      </div>
+      <div class="odlaw">
+        <p>Odlaw</p>
+        <%= image_tag("odlaw.png") %>
+        <i class="fa-regular fa-circle-check fa-2xl"></i>
+      </div>
     </div>
-
-    <h1><%= @exhibit.title %></h1>
-    
-    <div id="image-grid-container">
-      <div id="grid"></div>
-      <%= image_tag(@exhibit.image_path, size: "1000x630") %>
+  
+    <div class="right-panel">
+      <div class="score-panel">
+        <div id="high-score">
+          <% if @exhibit.high_score %>
+            <%= "Best time: " + @exhibit.high_score %>
+          <% else %>
+            <%= "Best time not yet recorded" %>
+          <% end %>
+        </div>
+        <div id="timer">
+          <div class="minutes">00</div>
+          <div>:</div>
+          <div class="seconds">00</div>
+          <div class="score-msg"></div>
+        </div>
+  
+      </div>
+  
+      <h1><%= @exhibit.title %></h1>
+  
+      <div id="image-grid-container">
+        <div id="grid"></div>
+        <%= image_tag(@exhibit.image_path, size: "1000x630") %>
+      </div>
     </div>
   </div>
 </div>
