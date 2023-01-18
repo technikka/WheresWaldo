@@ -91,10 +91,9 @@ const updateHighScore = async (current_score) => {
 }
 
 const alertNewScore = () => {
-  const div = document.getElementById("high-score").firstElementChild;
+  const div = document.querySelector(".score-msg");
   div.textContent = "New Best Time!!";
   div.style.color = foundCircleColor;
-  div.style.fontSize = "20px";
   const timer = document.getElementById("timer");
   timer.style.color = foundCircleColor;
 }
@@ -327,7 +326,7 @@ window.addEventListener("load", () => {
   sizeImage();
   sizeGrid();
   drawGrid();
-  timerStart();
+  // timerStart();
   get_high_score();
 });
 
