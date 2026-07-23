@@ -1,78 +1,50 @@
 # Where's Waldo
 
-An interactive implementation of the classic puzzle books. It features 3 exhibits of increasing difficulty, with 4 of the original characters to find in each.
+Where's Waldo is an interactive browser adaptation of the classic puzzle books. Players search detailed illustrated scenes to locate familiar characters while competing for the fastest completion time.
 
-This project was suggested at [The Odin Project](https://www.theodinproject.com/lessons/javascript-where-s-waldo-a-photo-tagging-app), to practice using Javascript in a Rails app, and AJAX to retrieve data from the backend.
-
-
-
-### Accessing The App
-
-Play it live here: [Where's Waldo](https://wheres-waldo-76r5.onrender.com/exhibits)
-
-**Note** that this lives on a free tier hosting service, therefore it may be slow to load and have visible (but brief) lag in selecting the characters.
+Originally developed as part of The Odin Project's Ruby on Rails curriculum, the project provided hands-on experience integrating JavaScript into a Rails application, handling asynchronous client-server communication with AJAX, and building an interactive game interface.
 
 
-## Technologies Used
+## Features
 
-* Ruby 3.1.0
-* Rails 7.0.4
-* PostgreSQL
-* AJAX
-* Render (hosting)
-* [Request.JS for Rails](https://github.com/rails/requestjs-rails)
-
-
-
-## Description
-
-Features of this game include:
-
-  * 3 exhibits to play ranging in difficulty from easy to hard.
-
-  * Each exhibit displays name, difficulty, and current best time on hover.
-
-  * Implements a timer which starts once the exhibit is loaded and ends once completed.
-
-  * 3 image sizes to choose from. The exhibits could not be responsive for different devices so this adds some accessibility. The page refreshes when a new size is selected.
-
-  * A left panel displays the characters to find in an exhibit. Once a character is correctly located, their image here will reflect that with a green check mark.
-
-  * Clicking on a character in the exhibit will summon a ring around the character and a select box-- if the correct character is selected, the ring becomes green and remains on the exhibit, otherwise, the ring turns red and the user is alerted that they have not found who they've selected.
+- Three exhibits with increasing difficulty.
+- Displays each exhibit's name, difficulty, and best completion time.
+- Tracks completion time with an in-game timer.
+- Three selectable image sizes for improved accessibility on different screen sizes.
+- Visual checklist showing which characters have already been found.
+- Interactive character selection with immediate visual feedback for correct and incorrect guesses.
+- Persistent markers showing successfully identified characters.
+- Stores and displays the fastest completion time for each exhibit.
 
 
+## Technologies
 
-#### Screenshots
+- Ruby 3.1.0
+- Ruby on Rails 7.0.4
+- PostgreSQL
+- AJAX
+- Request.JS
 
-**SPOILER ALERT**
+## Screenshot
 
-<img src="/public/screenshots/wheres_waldo_crop.jpg" width="400" alt="screenshot of application gameplay" title="screenshot of application gameplay">
+<p align="center">
+  <img src="public/screenshots/wheres_waldo_crop.jpg"
+       width="600"
+       alt="Gameplay screenshot">
+</p>
 
+## Known Limitations
 
-<img src="/public/screenshots/wheres_waldo_indexpage_crop.jpg" height="650" alt="screenshot of application's landing page" title="screenshot of application's landing page">
-<br/>
-* Showing the mouseover event that displays exhibit information.
-
-
-
-## Setup/Installation
-
-To run this project locally:
-
-1. Clone this repository
-2. Run `bundle install` to install dependencies
-3. Run `rails server`
-
-
-### Refections as a student:
-
-I was unable to get the Onload event listener cooperating with Turbolinks. After much research I ended up just disabling turbolinks for this project so that my setup js code would work in a "load" event.
+- The application was designed primarily for desktop use.
+- Image resizing reloads the page rather than updating dynamically.
+- The project relies on older versions of Ruby and Rails that may require updates for modern environments.
+- The interface and character selection feedback could be further refined.
 
 
-### What's Next:
+## What I Learned
 
-If I ever continue work on this project, I would:
+Where's Waldo gave me valuable experience combining a Rails backend with client-side JavaScript to build a responsive, interactive application. Managing asynchronous requests, updating the interface without full page reloads, and coordinating game state between the client and server were central challenges throughout the project.
 
-* Make this a React app and have character information stored in a Rails API.
+One particularly memorable obstacle involved JavaScript initialization with Turbolinks. After investigating several approaches, I ultimately disabled Turbolinks for the project so the game's initialization logic could reliably execute when each exhibit loaded. Although it wasn't the ideal long-term solution, working through the problem strengthened my debugging skills and reinforced the importance of understanding how frontend frameworks interact with application lifecycles.
 
-* Re-work the design of the select box and feedback to not hide the content beneath it.
+The project also highlighted the challenges of designing intuitive user interactions. Building the character selection system required balancing visual feedback with keeping the underlying image unobstructed, an experience that deepened my appreciation for thoughtful interface design.
